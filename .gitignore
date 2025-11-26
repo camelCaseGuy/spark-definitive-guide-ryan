@@ -1,2 +1,17 @@
 .DS_Store
 *.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.idea/
+.vscode/
+*.log
+node_modules/
+dist/
+build/
+*.env
+*.local
+coverage/
