@@ -13,7 +13,7 @@ from pyspark.sql import SparkSession
 
 def start_spark(
     app_name: str = "TDG-Optimized-Laptop",
-    driver_memory: str = "8g",
+    driver_memory: str = "12g",
     shuffle_partitions: str = "8",
     default_parallelism: str = "8",
     arrow_enabled: bool = True,
