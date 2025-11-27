@@ -9,7 +9,7 @@
 #
 
 from pyspark.sql import SparkSession
-
+import os, sys
 
 def start_spark(
     app_name: str = "TDG-Optimized-Laptop",
@@ -17,27 +17,25 @@ def start_spark(
     shuffle_partitions: str = "8",
     default_parallelism: str = "8",
     arrow_enabled: bool = True,
+    python_executable: str | None = None,
 ):
     """
     Start or get a SparkSession tuned for a single machine with ~24GB RAM.
 
     Parameters
     ----------
-    app_name : str
-        Name shown in Spark UI.
-    driver_memory : str
-        Memory for the driver, e.g. "4g", "8g".
-    shuffle_partitions : str
-        Number of shuffle partitions (default 200 is overkill for local).
-    default_parallelism : str
-        Default parallelism for RDD ops in local mode.
-    arrow_enabled : bool
-        Use Arrow for toPandas() conversions (faster).
-
-    Returns
-    -------
-    spark : pyspark.sql.SparkSession
+    python_executable : str or None
+        Path to the python executable used for PySpark workers. If None, uses
+        the current interpreter (sys.executable). On Windows this avoids trying
+        to invoke "python3".
     """
+    # ensure worker/driver python are set before SparkSession creation
+    if python_executable is None:
+        python_executable = sys.executable
+
+    os.environ.setdefault("PYSPARK_PYTHON", python_executable)
+    os.environ.setdefault("PYSPARK_DRIVER_PYTHON", python_executable)
+
     builder = (
         SparkSession.builder
         .appName(app_name)
@@ -45,6 +43,9 @@ def start_spark(
         .config("spark.driver.memory", driver_memory)
         .config("spark.sql.shuffle.partitions", shuffle_partitions)
         .config("spark.default.parallelism", default_parallelism)
+        # set pyspark python in Spark conf as well
+        .config("spark.pyspark.python", python_executable)
+        .config("spark.pyspark.driver.python", python_executable)
     )
 
     if arrow_enabled:
