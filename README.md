@@ -1,3 +1,8 @@
+# This is my work as I progress through this book to learn Spark.
+
+All my work following along or running my own test code goes in the [my_work folder](my_work). The `code` and `data` folders as well as the rest of this README were pulled from [the O'Reilly github repo](https://github.com/databricks/Spark-The-Definitive-Guide)
+
+##### The following is their README:
 # Spark: The Definitive Guide
 
 This is the central repository for all materials related to [Spark: The Definitive Guide](http://shop.oreilly.com/product/0636920034957.do) by Bill Chambers and Matei Zaharia. 
