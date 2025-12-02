@@ -1,4 +1,4 @@
-# This is my work as I progress through this book to learn Spark.
+### This is my work as I progress through this book to learn Spark.
 
 All my work following along or running my own test code goes in the [my_work folder](my_work). The `code` and `data` folders as well as the rest of this README were pulled from [the O'Reilly github repo](https://github.com/databricks/Spark-The-Definitive-Guide)
 
